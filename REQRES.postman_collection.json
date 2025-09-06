@@ -1,0 +1,87 @@
+{
+	"info": {
+		"_postman_id": "77e1f24d-7e33-427c-909b-6d4e1f05dd8d",
+		"name": "REQRES",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "46101819",
+		"_collection_link": "https://michael-946042.postman.co/workspace/REQ~667a9607-8b94-458f-beff-ae382061341b/collection/46101819-77e1f24d-7e33-427c-909b-6d4e1f05dd8d?action=share&source=collection_link&creator=46101819"
+	},
+	"item": [
+		{
+			"name": "Reqres",
+			"item": [
+				{
+					"name": "LIST",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"const response = pm.response.json();\r",
+									"\r",
+									"// Validate status code\r",
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.expect(pm.response.code).to.equal(200);\r",
+									"});\r",
+									"\r",
+									"// Validate response structure\r",
+									"pm.test(\"Response has required properties\", function () {\r",
+									"    pm.expect(response).to.have.property('page');\r",
+									"    pm.expect(response).to.have.property('per_page');\r",
+									"    pm.expect(response).to.have.property('total');\r",
+									"    pm.expect(response).to.have.property('total_pages');\r",
+									"    pm.expect(response).to.have.property('data').that.is.an('array');\r",
+									"    pm.expect(response).to.have.property('support');\r",
+									"});\r",
+									"\r",
+									"// Validate 'data' array elements\r",
+									"response.data.forEach(user => {\r",
+									"    pm.test(\"User has required properties\", function () {\r",
+									"        pm.expect(user).to.have.property('id');\r",
+									"        pm.expect(user).to.have.property('email').that.is.a('string');\r",
+									"        pm.expect(user).to.have.property('first_name').that.is.a('string');\r",
+									"        pm.expect(user).to.have.property('last_name').that.is.a('string');\r",
+									"        pm.expect(user).to.have.property('avatar').that.is.a('string');\r",
+									"    });\r",
+									"});\r",
+									"\r",
+									"// Validate 'support' object properties\r",
+									"pm.test(\"Support has required properties\", function () {\r",
+									"    pm.expect(response.support).to.have.property('url').that.is.a('string');\r",
+									"    pm.expect(response.support).to.have.property('text').that.is.a('string');\r",
+									"});\r",
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://reqres.in/api/users?page=2",
+							"protocol": "https",
+							"host": [
+								"reqres",
+								"in"
+							],
+							"path": [
+								"api",
+								"users"
+							],
+							"query": [
+								{
+									"key": "page",
+									"value": "2"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}
